@@ -127,11 +127,14 @@ var child = {
   },
   methods: {
     addData: function() {
-      this.data.item = {
-        name: this.item.name
-      }
-      console.log(this.data, this);
+      // this.data.item = {
+      //   name: this.item.name
+      // }
+      // console.log(this.data, this);
 
+      this.$set(this.data, 'item', {
+        name: this.item.name
+      })
       // this.$set(this.data, 'item', {
       //   name: this.item.name
       // });

@@ -128,16 +128,37 @@
     <thead>
     </thead>
     <tbody>
-      <tr v-for="(item, key) in data" :item="item" :key="key">
+      <!-- <row-component v-for="(item, key) in data" :person="item" :key="key"></row-component> -->
+      <tr is ="row-component" v-for="(item, key) in data" :person="item" :key="key">
+
+      </tr>
+      <!-- <tr v-for="(item, key) in data" :item="item" :key="key">
         <td>{{ item.name }}</td>
         <td>{{ item.cash }}</td>
         <td>{{ item.icash }}</td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 </div>
 
+<script type='text/x-template' id="rowComponentTemplate">
+  <tr>
+    <td>{{ person.name }}</td>
+    <td>{{ person.cash }}</td>
+    <td>{{ person.icash }}</td>
+  </tr>
+</script>
 <script>
+// Vue.component('row-component', {
+//   props: ['person'],
+//   template: '#rowComponentTemplate'
+// })
+
+var child = {
+  props: ['person'],
+  template: '#rowComponentTemplate'
+}
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -163,6 +184,9 @@ var app = new Vue({
         icash: 100,
       },
     ]
+  },
+  components: {
+    'row-component' : child
   }
 });
 </script>

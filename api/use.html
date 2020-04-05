@@ -97,10 +97,15 @@
 </div>
 
 <div id="app">
-  
+  <b-btn v-b-modal="'myModal'">Show Modal</b-btn>
+  <b-modal id="myModal">
+    Hello From My Modal!
+  </b-modal>
 </div>
 
-
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 
 <script>
 // CLI 版本請加入以下套用 BootstrapVue
@@ -114,16 +119,11 @@ var app = new Vue({
 </script>
 
 
-<!-- 
-<b-btn v-b-modal="'myModal'">Show Modal</b-btn>
-<b-modal id="myModal">
-  Hello From My Modal!
-</b-modal>
 
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
-<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
--->
+
+
+
+
  
         </div>
       </div>

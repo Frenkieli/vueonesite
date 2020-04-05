@@ -101,6 +101,8 @@
     <tbody>
       <tr is="row-component" v-for="(item, key) in data" 
         :item="item" :key="key"></tr>
+      <tr is="row-component-two" v-for="(item, key) in data" 
+        :item="item" :key="key+ 'two'"></tr>
     </tbody>
   </table>
 </div>
@@ -116,13 +118,7 @@
 <script>
 // mixin 是多個混合的概念
 
-Vue.component('row-component', {
-  props: ['item'],
-  data: function() {
-    return {
-      data: {},
-    }
-  },
+var mixinFilter = {
   template: '#row-component',
   filters: {
     dollarSign: function (n) {
@@ -134,9 +130,35 @@ Vue.component('row-component', {
       });
     }
   },
+}
+
+var mixinMounted = {
   mounted () {
     console.log('這段是 Mixin 產生')
   }
+}
+
+Vue.component('row-component', {
+  props: ['item'],
+  data: function() {
+    return {
+      data: {},
+    }
+  },
+  mixins: [mixinFilter, mixinMounted],
+});
+
+
+Vue.component('row-component-two', {
+  props: ['item'],
+  data: function() {
+    return {
+      data: {
+        data : 'two'
+      },
+    }
+  },
+  mixins: [mixinFilter, mixinMounted],
 });
 
 

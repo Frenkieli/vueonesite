@@ -102,18 +102,28 @@
       <tr is="row-component" v-for="(item, key) in data" :item="item" :key="key"></tr>
     </tbody>
   </table>
-  {{ data[1].cash }}
+  {{ data[1].cash | currency | dollarSign}}
 </div>
 
 <script type="text/x-template" id="row-component">
   <tr>
     <td>{{ item.name }}</td>
-    <td>{{ item.cash }}</td>
-    <td>{{ item.icash }}</td>
+    <td>{{ item.cash | currency | dollarSign}}</td>
+    <td>{{ item.icash | currency | dollarSign}}</td>
   </tr>
 </script>
 
 <script>
+Vue.filter('dollarSign' , function(n){
+  return `$ ${n}`
+})
+
+Vue.filter('currency' , function(n){
+  return n.toFixed(2).replace(/./g, function(c, i, a) {
+    return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+  });
+})
+
 var child = {
   props: ['item'],
   template: '#row-component',
@@ -121,6 +131,16 @@ var child = {
     return {
       data: {}
     }
+  },
+  filters: {
+    // currency: function(n) {
+    //   return n.toFixed(2).replace(/./g, function(c, i, a) {
+    //     return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+    //   });
+    // },
+    // dollarSign : function(n) {
+    //   return `$ ${n}`
+    // }
   },
   mounted: function() {
     console.log('Component:', this)

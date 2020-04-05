@@ -134,8 +134,10 @@
 
 <script>
 Vue.component('counter-component', {
-  data: {
-    counter: 0
+  data: function(){
+    return {
+      counter: 0
+    } 
   },
   template: '#counter-component'
 })

@@ -21,6 +21,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
+        .....................................
         <a class="nav-link" href="/basic/dev.html">基礎教學</a>
       </li>
       <li class="nav-item">
@@ -119,16 +120,19 @@
     <thead>
       <tr>
         <th>品名</th>
-        <th class="click">價格 
+        <th class="click" @click="price = !price;filterCondition = 'price'">價格 
           <!-- isReverse 為反轉 className -->
-          <span class="icon isReverse">
+          <span class="icon isReverse" :class="{ 'inverse' :  price}">
             <i class=" fas fa-angle-up text-success"></i>
           </span>
         </th>
-        <th class="click">到期日 
+        <th class="click" @click="date = !date; filterCondition = 'date'"> 到期日 
+          <span class="icon isReverse" :class="{ 'inverse' :  date}">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
         </th>
       </tr>
-      <tr v-for="item in data">
+      <tr v-for="item in filterData">
         <td>{{ item.name }}</td>
         <td>{{ item.price }}</td>
         <td>{{ item.expiryDate }}</td>
@@ -180,9 +184,44 @@ var app = new Vue({
         expiryDate: 200
       }
     ],
+    price : false,
+    date  : false,
+    filterCondition:'price'
   },
   // 請在此撰寫 JavaScript
-  computed: {}
+  computed: {
+    filterData : function () {
+      var vm = this;
+      var data = vm.data;
+      var sortEvent = [sortPrice, sortData];
+      function sortPrice (){
+        data.sort(function(a, b){
+          if(vm.price){
+            return (a.price > b.price) ? -1 : 1;
+          }else{
+            return (a.price > b.price) ? 1 : -1;
+          }
+        })
+      }
+      function sortData (){
+        data.sort(function(a, b){
+          if(vm.date){
+            return (a.expiryDate > b.expiryDate) ? -1 : 1;
+          }else{
+            return (a.expiryDate > b.expiryDate) ? 1 : -1;
+          }
+        })
+      }
+      if(vm.filterCondition == 'price'){
+        sortEvent[1]();
+        sortEvent[0]();
+      }else{
+        sortEvent[0]();
+        sortEvent[1]();
+      }
+      return data;
+    }
+  }
 });
 </script>
 
